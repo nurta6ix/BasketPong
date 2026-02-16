@@ -17,6 +17,9 @@ def menu():
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((360, 540))
     pygame.display.set_caption("BasketPong -> Main Menu")
+    # clickable play text
+    play_text = text.render("Play (click)", 1, 'yellow')
+    play_rect = play_text.get_rect(center=(180, 480))
 
     running = True
     while running:
@@ -24,17 +27,22 @@ def menu():
         keys = pygame.key.get_pressed()
 
         screen.blit(menuBg, (0, 0))
+        screen.blit(play_text, play_rect.topleft)
 
         if keys[pygame.K_p]:
             running = False
             gamemode()
 
-        pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if play_rect.collidepoint(event.pos):
+                    running = False
+                    gamemode()
+
+        pygame.display.update()
 
 def transition():
     bg = pygame.image.load('images/pong_BG.png')
@@ -204,8 +212,6 @@ def level1():
     bot = pygame.Surface((100, 22))  # bot
     bot.fill('yellow')
 
-    # render will be refreshed each frame so it shows updated hitcounter
-    # initial render, will be refreshed each frame
     hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
 
     playerPos = 130  # initial values
@@ -222,11 +228,10 @@ def level1():
 
         screen.blit(bg, (0, 0))
 
-        # collision of player with ball - use a >= check so we don't miss the collision
         if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
             yMove *= -1
             hitcounter += 1
-            # update hit text after changing the counter
+
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
 
             # ball trajectory
@@ -246,7 +251,6 @@ def level1():
             elif 40 <= xBallPos - playerPos <= 60:
                 xMove = xMove  # <----------
 
-            # clamp horizontal speed so it doesn't become too small or too large
             if xMove > 6:
                 xMove = 6
             if xMove < -6:
@@ -254,7 +258,6 @@ def level1():
             if 0 < abs(xMove) < 0.2:
                 xMove = 0.2 if xMove > 0 else -0.2
 
-        # collision of the ball with the bot - use <= to be more robust
         if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
             yMove *= -1
             hitcounter += 1
@@ -297,7 +300,7 @@ def level1():
 
         screen.blit(bot, (botPos, 35))  # <------- bot pos
         screen.blit(ball, (xBallPos, yBallPos))  # <------- ball pos
-        # ensure hit text is up-to-date (in case it wasn't updated by a collision this frame)
+
         hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
         screen.blit(hit, (10, 10))  # <------- hit counter
 
@@ -344,7 +347,7 @@ def level2():
 
         screen.blit(bg, (0, 0))
 
-        # collision of player with ball - use >= to avoid missing the contact
+
         if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
             yMove *= -1
             hitcounter += 1
@@ -373,7 +376,7 @@ def level2():
             if 0 < abs(xMove) < 0.2:
                 xMove = 0.2 if xMove > 0 else -0.2
 
-        # collision of the ball with the bot - use <= to be more robust
+
         if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
             yMove *= -1
             hitcounter += 1
@@ -416,7 +419,7 @@ def level2():
 
         screen.blit(bot, (botPos, 35))  # <------- bot pos
         screen.blit(ball, (xBallPos, yBallPos))  # <------- ball pos
-        # keep hit text current
+
         hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
         screen.blit(hit, (10, 10))  # <------- hit counter
 
@@ -463,7 +466,7 @@ def level3():
 
         screen.blit(bg, (0, 0))
 
-        # collision of player with ball - use >= to avoid missed frames
+
         if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
             yMove *= -1
             hitcounter += 1
@@ -492,7 +495,7 @@ def level3():
             if 0 < abs(xMove) < 0.2:
                 xMove = 0.2 if xMove > 0 else -0.2
 
-        # collision of the ball with the bot - use <= for robustness
+
         if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
             yMove *= -1
             hitcounter += 1
