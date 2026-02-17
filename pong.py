@@ -228,7 +228,7 @@ def level1():
 
         screen.blit(bg, (0, 0))
 
-        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
+        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos == 477:
             yMove *= -1
             hitcounter += 1
 
@@ -258,7 +258,7 @@ def level1():
             if 0 < abs(xMove) < 0.2:
                 xMove = 0.2 if xMove > 0 else -0.2
 
-        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
+        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos == 56:
             yMove *= -1
             hitcounter += 1
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
@@ -348,7 +348,7 @@ def level2():
         screen.blit(bg, (0, 0))
 
 
-        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
+        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos == 477:
             yMove *= -1
             hitcounter += 1
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
@@ -377,7 +377,7 @@ def level2():
                 xMove = 0.2 if xMove > 0 else -0.2
 
 
-        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
+        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos == 56:
             yMove *= -1
             hitcounter += 1
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
@@ -467,7 +467,7 @@ def level3():
         screen.blit(bg, (0, 0))
 
 
-        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos >= 477:
+        if playerPos - 25 <= xBallPos <= playerPos + 115 and yBallPos == 477:
             yMove *= -1
             hitcounter += 1
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
@@ -496,7 +496,7 @@ def level3():
                 xMove = 0.2 if xMove > 0 else -0.2
 
 
-        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos <= 56:
+        if botPos - 25 <= xBallPos <= botPos + 120 and yBallPos == 56:
             yMove *= -1
             hitcounter += 1
             hit = text.render(f"Hits: {hitcounter}", 1, 'yellow')
